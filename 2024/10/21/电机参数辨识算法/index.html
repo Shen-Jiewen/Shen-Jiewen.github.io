@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Javen的技术博客</title>
+    <title>电机参数辨识算法 | Javen的技术博客</title>
     <meta name="author" content="Javen" />
     <meta name="description" content="This is my website Hello Everyone" />
     <meta name="keywords" content="" />
@@ -47,7 +47,9 @@
 
 
 
-<script src="/js/lib/home.js"></script>
+
+
+
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -157,40 +159,11 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="home-head">
-    <div
-        id="home-background"
-        ref="homeBackground"
-        data-images="/images/background.jpg"
-    ></div>
-    <div id="home-info" @click="homeClick">
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="loop"></span>
-        <span class="info">
-            <div class="wrap">
-                <h1>Javen的技术博客</h1>
-                <h3>个人技术博客</h3>
-                <h5>This is my website Hello Everyone</h5>
-            </div>
-        </span>
+            <div class="article">
+    <div>
+        <h1>电机参数辨识算法</h1>
     </div>
-</div>
-<div
-    id="home-posts-wrap"
-    ref="homePostsWrap"
-    true
->
-    <div id="home-posts">
-        
-
-<div class="post">
-    <a href="/2024/10/21/%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0%E8%BE%A8%E8%AF%86%E7%AE%97%E6%B3%95/">
-        <h2 class="post-title">电机参数辨识算法</h2>
-    </a>
-    <div class="category-and-date">
-        
+    <div class="info">
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
@@ -200,10 +173,9 @@
         
         
     </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <h1 id="电机参数识别算法个人心得-——-递归最小二乘法（RLS）"><a href="#电机参数识别算法个人心得-——-递归最小二乘法（RLS）" class="headerlink" title="电机参数识别算法个人心得 —— 递归最小二乘法（RLS）"></a>电机参数识别算法个人心得 —— 递归最小二乘法（RLS）</h1><h6 id="Author：Javen-Date：2024-5-16"><a href="#Author：Javen-Date：2024-5-16" class="headerlink" title="Author：Javen         Date：2024.5.16"></a>Author：Javen         Date：2024.5.16</h6><h2 id="1-为什么要做参数辨识"><a href="#1-为什么要做参数辨识" class="headerlink" title="1. 为什么要做参数辨识"></a>1. 为什么要做参数辨识</h2><p>最近在项目里需要搞电机的参数估计，说白了就是要实时获取电机的关键参数，比如定子电阻 $R_s$、定子电感 $L_s $还有磁链$Psi$。之前一直觉得参数测量这种事是硬件组的活儿，没想到我也要弄。于是就开始研究递归最小二乘法（RLS），发现它不仅能搞定这些参数，还能实时更新，在参数整定方面还是很实用的。所以，这篇笔记就是我在搞清楚这套算法之后的心得，边学边写，顺便记个脑子。</p>
+    
+    <div class="content" v-pre>
+        <h1 id="电机参数识别算法个人心得-——-递归最小二乘法（RLS）"><a href="#电机参数识别算法个人心得-——-递归最小二乘法（RLS）" class="headerlink" title="电机参数识别算法个人心得 —— 递归最小二乘法（RLS）"></a>电机参数识别算法个人心得 —— 递归最小二乘法（RLS）</h1><h6 id="Author：Javen-Date：2024-5-16"><a href="#Author：Javen-Date：2024-5-16" class="headerlink" title="Author：Javen         Date：2024.5.16"></a>Author：Javen         Date：2024.5.16</h6><h2 id="1-为什么要做参数辨识"><a href="#1-为什么要做参数辨识" class="headerlink" title="1. 为什么要做参数辨识"></a>1. 为什么要做参数辨识</h2><p>最近在项目里需要搞电机的参数估计，说白了就是要实时获取电机的关键参数，比如定子电阻 $R_s$、定子电感 $L_s $还有磁链$Psi$。之前一直觉得参数测量这种事是硬件组的活儿，没想到我也要弄。于是就开始研究递归最小二乘法（RLS），发现它不仅能搞定这些参数，还能实时更新，在参数整定方面还是很实用的。所以，这篇笔记就是我在搞清楚这套算法之后的心得，边学边写，顺便记个脑子。</p>
 <h2 id="2-电机的-d-q-轴模型"><a href="#2-电机的-d-q-轴模型" class="headerlink" title="2. 电机的 d-q 轴模型"></a>2. 电机的 d-q 轴模型</h2><p>先从基础说起。电机的 d-q 轴模型其实不复杂，就是把三相电机的电压和电流转换成一个固定的参考系。可以这么理解：通过数学变换，把三相电流、电压搞成两个直轴上的量，这样计算起来方便很多，尤其是在控制上。</p>
 <p>方程如下：</p>
 <script type="math/tex; mode=display">
@@ -242,93 +214,13 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
 <h2 id="6-最后总结"><a href="#6-最后总结" class="headerlink" title="6. 最后总结"></a>6. 最后总结</h2><p>递归最小二乘法真的是个强大工具，尤其是做这种在线参数估计的时候，它能在数据变化的情况下自适应调整参数。这段代码的实现核心思想很简单：通过历史数据和新数据的结合，不断优化你想要的参数。当然了，实际用的时候，调参也很重要，尤其是遗忘因子 $\lambda $ 这东西，得根据具体情况调到合适的值。</p>
 <p>好了，学完 RLS，电机参数识别这部分算是搞定了，接下来就可以尝试在实际系统中跑一跑，看效果了。</p>
 
-            
-        </div>
     </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/10/21/%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0%E8%BE%A8%E8%AF%86%E7%AE%97%E6%B3%95/" class="go-post">阅读全文</a>
-</div>
-
-<div class="post">
-    <a href="/2024/10/20/hello-world/">
-        <h2 class="post-title">Hello World</h2>
-    </a>
-    <div class="category-and-date">
-        
-        <span class="date">
-            <span class="icon">
-                <i class="fa-solid fa-calendar fa-fw"></i>
-            </span>
-            2024/10/20
-        </span>
-        
-        
-    </div>
-    <div class="description">
-        <div class="content" v-pre>
-            
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-            
-        </div>
-    </div>
-    <div class="post-tags">
-        
-        
-        
-    </div>
-    <a href="/2024/10/20/hello-world/" class="go-post">阅读全文</a>
-</div>
-
-
-        <div class="page-current">
     
-    <span class="current">1</span>
     
     
     
     
-</div>
-
-    </div>
     
-    <div id="home-card">
-        <div id="card-style">
-    <div id="card-div">
-        <div class="avatar">
-            <img src="/images/avatar.jpg" alt="avatar" />
-        </div>
-        <div class="name">Javen</div>
-        <div class="description">
-            <p>Description<br>…</p>
-
-        </div>
-        
-        
-        <div class="friend-links">
-            
-            <div class="friend-link">
-                <a target="_blank" rel="noopener" href="https://argvchs.github.io">Argvchs</a>
-            </div>
-            
-        </div>
-        
-    </div>
-</div>
-
-    </div>
     
 </div>
 
@@ -360,6 +252,12 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+
+
+
+
     
 </body>
 </html>

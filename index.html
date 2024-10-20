@@ -274,7 +274,7 @@ mjx-container[display="true"] + br {
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/10/21/Hexo-Github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">hexo+ + github部署个人网站流程</a>
+            <a href="/2024/10/21/Hexo-Github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">Hexo-Github-搭建个人博客</a>
         </h2>
 
         <div class="post-meta">
@@ -285,7 +285,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-10-21 03:50:49 / Modified: 05:43:50" itemprop="dateCreated datePublished" datetime="2024-10-21T03:50:49+08:00">2024-10-21</time>
+              <time title="Created: 2024-10-21 03:50:49 / Modified: 05:52:58" itemprop="dateCreated datePublished" datetime="2024-10-21T03:50:49+08:00">2024-10-21</time>
             </span>
 
           
@@ -323,11 +323,11 @@ mjx-container[display="true"] + br {
 </ul>
 </li>
 </ul>
-<h2 id="2-Github-Page-配置"><a href="#2-Github-Page-配置" class="headerlink" title="2. Github Page 配置"></a>2. Github Page 配置</h2><p>首先，我们需要访问Github的官网，登录我们的账号:<br><img src="./Hexo-Github-搭建个人博客/image.png" alt="image"><br>之后，我们需要创建一个用来访问的仓库，用来部署我们的网站<br><img src="./Hexo-Github-搭建个人博客/image2.png" alt="image2"><br>创建好之后,需要在Github账户中添加公钥，用于我们将本地的项目上传到Github上<br><img src="./Hexo-Github-搭建个人博客/image1.png" alt="image1"><br>本地获取公钥的命令是：</p>
+<h2 id="2-Github-Page-配置"><a href="#2-Github-Page-配置" class="headerlink" title="2. Github Page 配置"></a>2. Github Page 配置</h2><p>首先，我们需要访问Github的官网，登录我们的账号:<br><img src="/source/_posts/Hexo-Github-搭建个人博客/image.png" alt="image"><br>之后，我们需要创建一个用来访问的仓库，用来部署我们的网站<br><img src="/source/_posts/Hexo-Github-搭建个人博客/image2.png" alt="image2"><br>创建好之后,需要在Github账户中添加公钥，用于我们将本地的项目上传到Github上<br><img src="/source/_posts/Hexo-Github-搭建个人博客/image1.png" alt="image1"><br>本地获取公钥的命令是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh-keygen ： 用于创建公钥的命令</span></span><br><span class="line"><span class="comment"># -t rsa：指定使用 RSA 加密算法（也可以用 ed25519，更快且更安全）。</span></span><br><span class="line"><span class="comment"># -C "your_email@example.com"：为 SSH 密钥添加注释（通常为邮箱地址）。</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统会提示你选择密钥保存路径（默认路径为 ~/.ssh/id_rsa）。</span></span><br><span class="line"><span class="comment"># 查看公钥</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端会显示以下内容</span></span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA7...your-key...== your_email@example.com</span><br><span class="line"><span class="comment"># 复制以上公钥内容</span></span><br></pre></td></tr></table></figure>
-<p>之后将获取到的公钥保存到Github上<br><img src="./Hexo-Github-搭建个人博客/image3.png" alt="image3"><br><img src="./Hexo-Github-搭建个人博客/image4.png" alt="image4"><br>没有问题之后就可以上传项目了，再次打开VSCode的远程终端或者其他的远程连接终端，进入blog文件夹下，执行一下操作</p>
+<p>之后将获取到的公钥保存到Github上<br><img src="/source/_posts/Hexo-Github-搭建个人博客/image3.png" alt="image3"><br><img src="/source/_posts/Hexo-Github-搭建个人博客/image4.png" alt="image4"><br>没有问题之后就可以上传项目了，再次打开VSCode的远程终端或者其他的远程连接终端，进入blog文件夹下，执行一下操作</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./blog 下执行</span></span><br><span class="line"><span class="comment"># 首先，找到这个文件夹下的_config.yml配置文件，打开并且下拉到最后，添加以下内容,repo后边跟Github仓库的地址加.git，main表示使用这个分支</span></span><br><span class="line">deploy:</span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    repo: https://github.com/username/username.github.io.git</span><br><span class="line">    branch: main</span><br><span class="line"><span class="comment"># 之后需要安装一个git部署工具 hexo-deployer-git</span></span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 之后执行以下指令 : </span></span><br><span class="line">hexo clean <span class="comment"># 清除之前生成的东西</span></span><br><span class="line">hexo g <span class="comment"># hexo generate 生成静态文章</span></span><br><span class="line">hexo d <span class="comment"># hexo deploy 部署文章</span></span><br><span class="line"><span class="comment"># 如果是在离线端即 localhost:4000端测试你的博客，则只需要 hexo g + hexo s 即可，无需 hexo d</span></span><br></pre></td></tr></table></figure>
-<p>如果看到以下内容，就证明已经配置成功了<br><img src="./Hexo-Github-搭建个人博客/image5.png" alt="image5"><br>之后就可以访问以下网站直接访问博客页面了<br><code>username.github.io  # https://username.github.io</code></p>
+<p>如果看到以下内容，就证明已经配置成功了<br><img src="/source/_posts/Hexo-Github-搭建个人博客/image5.png" alt="image5"><br>之后就可以访问以下网站直接访问博客页面了<br><code>username.github.io  # https://username.github.io</code></p>
 
       
     </div>

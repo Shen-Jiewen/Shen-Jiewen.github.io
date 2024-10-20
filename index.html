@@ -260,6 +260,93 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/21/Hexo-Github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Javen">
+      <meta itemprop="description" content="This is my website Hello Everyone">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Javen的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/21/Hexo-Github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">hexo+ + github部署个人网站流程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-10-21 03:50:49 / Modified: 05:43:50" itemprop="dateCreated datePublished" datetime="2024-10-21T03:50:49+08:00">2024-10-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Hexo-Github-部署个人网站"><a href="#Hexo-Github-部署个人网站" class="headerlink" title="Hexo + Github 部署个人网站"></a>Hexo + Github 部署个人网站</h1><h2 id="1-环境配置"><a href="#1-环境配置" class="headerlink" title="1. 环境配置"></a>1. 环境配置</h2><p>本人使用的工作流和部署环境是 VSCode + Remote SSH + 阿里云服务器(Ubuntu24.04) + Github Page，以下是一些前置环境：</p>
+<ul>
+<li><p>Github账号</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_67906358/article/details/128808210" title="点击访问">注册Github账号详细教程【超详细篇 适合新手入门】</a></li>
+</ul>
+</li>
+<li><p>Ubuntu24.04的环境</p>
+<ul>
+<li><p>Node.js</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install nodejs <span class="comment">#安装 Node.js</span></span><br><span class="line">nodejs --version <span class="comment"># 查看版本信息 我的是:v18.19.1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>npm(Node.js的包管理器)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install npm <span class="comment"># 安装 npm(Node.js的全局包管理器)</span></span><br><span class="line">npm --version <span class="comment"># 查看版本信息 我的是:9.2.0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install git <span class="comment"># 安装Git (项目版本管理工具)</span></span><br><span class="line">git --version $ 查看版本信息 我的是:git version 2.43.0</span><br><span class="line">git config --global user.name <span class="string">"Javen"</span></span><br><span class="line">git config --global user.email <span class="string">"2452731211@qq.com"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># npm install : 用来安装npm包</span></span><br><span class="line"><span class="comment"># hexo-cli : Hexo的命令行工具,提供一系列命令来管理和操作博客项目</span></span><br><span class="line"><span class="comment"># -g : 表示全局安装,在任何地方都可以使用Hexo指令</span></span><br><span class="line">npm install hexo-cli -g</span><br><span class="line"><span class="comment"># hexo init : 用于初始化一个新的Hexo项目</span></span><br><span class="line"><span class="comment"># blog : 用于初始化的目录名,这里会将新的Hexo博客项目创建到执行这条命令的文件夹中的blog文件夹里。</span></span><br><span class="line">hexo init blog</span><br><span class="line"><span class="comment"># 进入文件夹</span></span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment"># npm install : 安装Hexo项目用到的所有包</span></span><br><span class="line"><span class="comment"># 国内安装慢或者没有魔法的可以使用镜像网站下载，下面是镜像安装命令</span></span><br><span class="line"><span class="comment"># npm install --registry=https://registry.npmmirror.com</span></span><br><span class="line">npm install</span><br><span class="line"><span class="comment"># 启动本地预览，使用这条指令后Hexo会默认在本地的4000端口开启服务，下面是访问链接</span></span><br><span class="line"><span class="comment"># http://localhost:4000</span></span><br><span class="line">hexo server <span class="comment"># 简写:hexo s</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Github-Page-配置"><a href="#2-Github-Page-配置" class="headerlink" title="2. Github Page 配置"></a>2. Github Page 配置</h2><p>首先，我们需要访问Github的官网，登录我们的账号:<br><img src="./Hexo-Github-搭建个人博客/image.png" alt="image"><br>之后，我们需要创建一个用来访问的仓库，用来部署我们的网站<br><img src="./Hexo-Github-搭建个人博客/image2.png" alt="image2"><br>创建好之后,需要在Github账户中添加公钥，用于我们将本地的项目上传到Github上<br><img src="./Hexo-Github-搭建个人博客/image1.png" alt="image1"><br>本地获取公钥的命令是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh-keygen ： 用于创建公钥的命令</span></span><br><span class="line"><span class="comment"># -t rsa：指定使用 RSA 加密算法（也可以用 ed25519，更快且更安全）。</span></span><br><span class="line"><span class="comment"># -C "your_email@example.com"：为 SSH 密钥添加注释（通常为邮箱地址）。</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统会提示你选择密钥保存路径（默认路径为 ~/.ssh/id_rsa）。</span></span><br><span class="line"><span class="comment"># 查看公钥</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端会显示以下内容</span></span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA7...your-key...== your_email@example.com</span><br><span class="line"><span class="comment"># 复制以上公钥内容</span></span><br></pre></td></tr></table></figure>
+<p>之后将获取到的公钥保存到Github上<br><img src="./Hexo-Github-搭建个人博客/image3.png" alt="image3"><br><img src="./Hexo-Github-搭建个人博客/image4.png" alt="image4"><br>没有问题之后就可以上传项目了，再次打开VSCode的远程终端或者其他的远程连接终端，进入blog文件夹下，执行一下操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./blog 下执行</span></span><br><span class="line"><span class="comment"># 首先，找到这个文件夹下的_config.yml配置文件，打开并且下拉到最后，添加以下内容,repo后边跟Github仓库的地址加.git，main表示使用这个分支</span></span><br><span class="line">deploy:</span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    repo: https://github.com/username/username.github.io.git</span><br><span class="line">    branch: main</span><br><span class="line"><span class="comment"># 之后需要安装一个git部署工具 hexo-deployer-git</span></span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 之后执行以下指令 : </span></span><br><span class="line">hexo clean <span class="comment"># 清除之前生成的东西</span></span><br><span class="line">hexo g <span class="comment"># hexo generate 生成静态文章</span></span><br><span class="line">hexo d <span class="comment"># hexo deploy 部署文章</span></span><br><span class="line"><span class="comment"># 如果是在离线端即 localhost:4000端测试你的博客，则只需要 hexo g + hexo s 即可，无需 hexo d</span></span><br></pre></td></tr></table></figure>
+<p>如果看到以下内容，就证明已经配置成功了<br><img src="./Hexo-Github-搭建个人博客/image5.png" alt="image5"><br>之后就可以访问以下网站直接访问博客页面了<br><code>username.github.io  # https://username.github.io</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/21/%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0%E8%BE%A8%E8%AF%86%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -427,7 +514,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -436,7 +523,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

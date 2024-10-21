@@ -260,6 +260,109 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://shen-jiewen.github.io/2024/10/21/%E5%BC%B9%E9%81%93%E8%A7%A3%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Javen">
+      <meta itemprop="description" content="This is my website Hello Everyone">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Javen的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/21/%E5%BC%B9%E9%81%93%E8%A7%A3%E7%AE%97/" class="post-title-link" itemprop="url">弹道解算</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-10-21 16:22:33 / Modified: 16:35:23" itemprop="dateCreated datePublished" datetime="2024-10-21T16:22:33+08:00">2024-10-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="弹道解算算法研究"><a href="#弹道解算算法研究" class="headerlink" title="弹道解算算法研究"></a>弹道解算算法研究</h1><p>在英雄组的技术讨论中，我们对大弹丸在远距离吊射中的弹道解算算法进行了优化和分析。弹道解算过程中，涉及多个模型，包括无空气阻力模型、一次空气阻力模型和二次空气阻力模型。本文将对这些模型进行详尽的公式推导和讨论，并介绍我们在实际应用中的优化方案。</p>
+<h2 id="1-无空气阻力模型"><a href="#1-无空气阻力模型" class="headerlink" title="1. 无空气阻力模型"></a>1. 无空气阻力模型</h2><p>无空气阻力模型通常适用于速度较快、射程较近的情况，比如近距离的小弹丸对装甲板的打击。由于弹道的下坠影响较低，且计算公式简单，这种模型对设备的性能要求较低。对于无空气阻力的情况下，弹道的计算公式如下：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+    x(t) = x_0 + v_{0x} t \\
+    z(t) = z_0 + v_{0z} t - \frac{1}{2} g t^2
+\end{cases}</script><p>其中，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="2.282ex" height="1.375ex" role="img" focusable="false" viewBox="0 -442 1008.6 607.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mn" transform="translate(605,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g></g></g></svg></mjx-container> 和 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="2.04ex" height="1.375ex" role="img" focusable="false" viewBox="0 -442 901.6 607.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D467" d="M347 338Q337 338 294 349T231 360Q211 360 197 356T174 346T162 335T155 324L153 320Q150 317 138 317Q117 317 117 325Q117 330 120 339Q133 378 163 406T229 440Q241 442 246 442Q271 442 291 425T329 392T367 375Q389 375 411 408T434 441Q435 442 449 442H462Q468 436 468 434Q468 430 463 420T449 399T432 377T418 358L411 349Q368 298 275 214T160 106L148 94L163 93Q185 93 227 82T290 71Q328 71 360 90T402 140Q406 149 409 151T424 153Q443 153 443 143Q443 138 442 134Q425 72 376 31T278 -11Q252 -11 232 6T193 40T155 57Q111 57 76 -3Q70 -11 59 -11H54H41Q35 -5 35 -2Q35 13 93 84Q132 129 225 214T340 322Q352 338 347 338Z"></path></g><g data-mml-node="mn" transform="translate(498,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g></g></g></svg></mjx-container> 分别为初始位置，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="3ex" height="1.377ex" role="img" focusable="false" viewBox="0 -443 1326 608.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="TeXAtom" transform="translate(518,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></g></g></svg></mjx-container> 和 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="2.829ex" height="1.377ex" role="img" focusable="false" viewBox="0 -443 1250.4 608.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="TeXAtom" transform="translate(518,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D467" d="M347 338Q337 338 294 349T231 360Q211 360 197 356T174 346T162 335T155 324L153 320Q150 317 138 317Q117 317 117 325Q117 330 120 339Q133 378 163 406T229 440Q241 442 246 442Q271 442 291 425T329 392T367 375Q389 375 411 408T434 441Q435 442 449 442H462Q468 436 468 434Q468 430 463 420T449 399T432 377T418 358L411 349Q368 298 275 214T160 106L148 94L163 93Q185 93 227 82T290 71Q328 71 360 90T402 140Q406 149 409 151T424 153Q443 153 443 143Q443 138 442 134Q425 72 376 31T278 -11Q252 -11 232 6T193 40T155 57Q111 57 76 -3Q70 -11 59 -11H54H41Q35 -5 35 -2Q35 13 93 84Q132 129 225 214T340 322Q352 338 347 338Z"></path></g></g></g></g></g></svg></mjx-container> 分别为初始速度在水平方向和竖直方向的分量，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.464ex;" xmlns="http://www.w3.org/2000/svg" width="1.079ex" height="1.464ex" role="img" focusable="false" viewBox="0 -442 477 647"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g></g></g></svg></mjx-container> 为重力加速度。</p>
+<p>然而，由于大弹丸重量较重，射程较远，因此无空气阻力模型不适合用于大弹丸的解算。大弹丸在远距离射击中会受到重力和空气阻力的显著影响，这使得弹道逐渐偏离简单的抛物线轨迹。</p>
+<p>无空气阻力模型的优点是计算量低，特别适合计算能力有限的场景，如嵌入式设备或实时控制系统。然而，这种简化带来了显著的精度损失，尤其是在远距离和高重量的情况下。因此，对于更高精度需求的场景，必须引入空气阻力的影响。</p>
+<h2 id="2-一次空气阻力模型"><a href="#2-一次空气阻力模型" class="headerlink" title="2. 一次空气阻力模型"></a>2. 一次空气阻力模型</h2><p>一次空气阻力模型假设空气阻力与速度成正比，这一模型能够更好地考虑空气阻力对弹道的影响。模型的计算公式如下：</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+    x(t) = x_0 + v_{0x} t - \frac{1}{2} \frac{k}{m} v_{0x}^2 t^2 \\
+    z(t) = z_0 + v_{0z} t - \frac{1}{2} g t^2
+\end{cases}</script><p>其中，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.179ex" height="1.595ex" role="img" focusable="false" viewBox="0 -694 521 705"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g></svg></mjx-container> 为空气阻力系数，<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.986ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 878 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> 为弹丸质量。</p>
+<p>在应用中，我们对一次空气阻力模型进行了优化，简化为仅考虑水平方向的空气阻力，因为大弹丸在吊射时的水平行程远大于竖直行程。这样做既减少了计算量，又保持了足够的精度。</p>
+<p>在测试中，我们发现对于上升阶段的弹速在 15.5 m/s 左右时，一次空气阻力模型能够实现对前哨站的精准打击。然而，在远距离吊射时，弹丸的下降阶段会因旋转分量的影响而产生左右的散布。由于旋转速度难以观测，且机械结构的优化对旋度的影响远大于弹道补偿，因此一次空气阻力模型并不能完美适配。</p>
+<p>此外，在实际应用中，弹丸在射出时由于发射机构的双极摩擦轮作用，通常会带有一定的旋转。这种旋转在上升阶段对弹道的影响较小，但在下降阶段，由于速度降低和空气阻力的影响，旋转分量会导致弹道产生较为显著的偏移。这使得仅使用一次空气阻力模型无法完全准确描述远距离射击的弹道。</p>
+<h2 id="3-二次空气阻力模型"><a href="#3-二次空气阻力模型" class="headerlink" title="3. 二次空气阻力模型"></a>3. 二次空气阻力模型</h2><p>二次空气阻力模型中，空气阻力与速度的平方成正比。其水平方向和竖直方向的计算公式如下：</p>
+<ul>
+<li>水平方向：<script type="math/tex; mode=display">m \frac{d^2 x}{d t^2} = -k \left( \frac{d x}{d t} \right)^2</script></li>
+<li>竖直方向：<script type="math/tex; mode=display">m \frac{d^2 z}{d t^2} = -mg - k \left( \frac{d z}{d t} \right)^2</script></li>
+</ul>
+<p>二次空气阻力模型考虑了速度平方项的空气阻力影响，因此在描述高速弹丸的运动时更加精确。我们使用二阶线性微分方程来描述弹道的轨迹。然而，由于这种方程没有封闭解析解，通常需要使用数值迭代的方法求解，这使得计算复杂，初值敏感，且不一定有解。因此，二次空气阻力模型不适合嵌入式设备。</p>
+<p>在远距离射击场景中，二次空气阻力模型虽然可以提供更精确的弹道描述，但其计算量和对初始条件的敏感性使其在资源受限的情况下不具备可行性。此外，由于弹丸在下降阶段的复杂旋转行为，二次空气阻力模型同样面临挑战。因此，我们在实际应用中并未采用该模型，而是选择了一种折中的方法。</p>
+<h2 id="4-逐段解算与曲线拟合"><a href="#4-逐段解算与曲线拟合" class="headerlink" title="4. 逐段解算与曲线拟合"></a>4. 逐段解算与曲线拟合</h2><p>经过上述模型的分析和测试，我们决定对弹道的不同阶段进行逐段解算，最终拟合出最有可能的落点曲线，并据此确定云台的初始 pitch 角度。</p>
+<h3 id="4-1-分段模型选择与优化"><a href="#4-1-分段模型选择与优化" class="headerlink" title="4.1 分段模型选择与优化"></a>4.1 分段模型选择与优化</h3><p>在我们的优化方案中，将弹道分为三个阶段：上升阶段、最高点阶段以及下降阶段。每个阶段使用最适合的模型进行解算，从而在精度和计算负担之间找到平衡。</p>
+<ul>
+<li><strong>只有上升阶段</strong>：使用一次空气阻力模型进行拟合。该模型在考虑空气阻力的基础上简化了计算，经过多次测试，落点误差在上下 0.05 m 范围内。对于英雄机器人打击前哨站的任务，这一精度是可以接受的。</li>
+<li><strong>最高点阶段</strong>：在弹道达到最高点时，弹速降至最低，空气阻力的作用也相对较小。在这一阶段，我们可以认为空气阻力的影响较为可忽略，因此使用无空气阻力模型对这一阶段进行简单计算。</li>
+<li><strong>既有上升又有下降阶段</strong>：在下降阶段对落点进行大量测试，拟合出适合英雄机器人的落点散布曲线。在下降阶段，由于弹速降低，旋转对弹道的影响变得显著，我们采用了基于实验数据的拟合曲线来描述弹道的偏移，从而确保打击的准确性。</li>
+</ul>
+<p>这种逐段解算与曲线拟合的方法，不仅减少了计算负担，还能够保证在远距离吊射中的精度要求。通过对不同阶段采用不同的模型，我们能够更加精确地描述弹丸的运动行为，尤其是在旋转分量对弹道产生影响的情况下。</p>
+<h3 id="4-2-实际应用中的实验验证"><a href="#4-2-实际应用中的实验验证" class="headerlink" title="4.2 实际应用中的实验验证"></a>4.2 实际应用中的实验验证</h3><p>在实验过程中，我们对上述逐段解算方法进行了多次测试。实验结果表明，对于不同的目标距离和高度，该方法能够有效地提高打击精度。特别是在模拟实战条件下，英雄机器人能够在不同高度和距离的目标上保持稳定的命中率。</p>
+<p>此外，我们还对逐段解算与曲线拟合方法进行了压力测试，以评估其在实时控制系统中的表现。结果表明，该方法在计算量和响应时间上均符合系统的实时性要求，为英雄机器人在复杂环境中的应用提供了有力支持。</p>
+<h2 id="5-主要计算代码示例"><a href="#5-主要计算代码示例" class="headerlink" title="5. 主要计算代码示例"></a>5. 主要计算代码示例</h2><p>以下为主要计算代码的简化示例，用于逐段解算弹道并拟合最终的落点曲线：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">[success, angle]</span> = <span class="title">solver</span><span class="params">(vel, coeff, target_x, target_h)</span></span></span><br><span class="line">    success = <span class="number">0</span>;</span><br><span class="line">    MAX_ITER = <span class="number">100</span>; <span class="comment">% 最大迭代次数</span></span><br><span class="line">    PI = <span class="built_in">atan</span>(<span class="number">1</span>) * <span class="number">4</span>; <span class="comment">% 圆周率</span></span><br><span class="line">    aimed_h = target_h; <span class="comment">% 初始化目标高度</span></span><br><span class="line">    <span class="built_in">angle</span> = <span class="number">0</span>; <span class="comment">% 初始化角度</span></span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:MAX_ITER</span><br><span class="line">        <span class="comment">% 计算临时角度</span></span><br><span class="line">        tmp_angle = <span class="built_in">atan2</span>(aimed_h, target_x);</span><br><span class="line">        <span class="comment">% 检查角度范围是否在 (-80° 到 80°) 之间</span></span><br><span class="line">        <span class="keyword">if</span> tmp_angle &gt; <span class="number">80</span> * PI / <span class="number">180</span> || tmp_angle &lt; <span class="number">-80</span> * PI / <span class="number">180</span></span><br><span class="line">            success = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">% 使用 forward_motion 函数计算高度和时间</span></span><br><span class="line">        [h, t] = forward_motion(vel, coeff, tmp_angle, target_x);</span><br><span class="line">        <span class="comment">% 检查运动时间是否超过 10s</span></span><br><span class="line">        <span class="keyword">if</span> t &gt; <span class="number">10</span></span><br><span class="line">            success = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="comment">% 计算高度差</span></span><br><span class="line">        dh = target_h - h;</span><br><span class="line">        aimed_h = aimed_h + dh;</span><br><span class="line">        <span class="comment">% 如果高度差小于 0.01，则迭代结束</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">abs</span>(dh) &lt; <span class="number">0.01</span></span><br><span class="line">            <span class="built_in">angle</span> = tmp_angle;</span><br><span class="line">            success = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-结论"><a href="#6-结论" class="headerlink" title="6. 结论"></a>6. 结论</h2><p>通过对无空气阻力模型、一次空气阻力模型和二次空气阻力模型的分析，我们最终选择对不同阶段使用不同的模型进行逐段解算，并通过曲线拟合优化了大弹丸的落点预测。这种方法在保证精度的同时，降低了嵌入式设备的计算负担。通过结合实验验证和压力测试，我们证明了该方法在实际应用中的有效性和可靠性。</p>
+<p>在未来的研究中，我们计划进一步优化弹道的实时计算方法，探索更加精确且计算量低的弹道解算算法，以适应更复杂的实战环境和更高的性能需求。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Projectile_motion">Ballistics and Projectile Motion</a></li>
+<li>MATLAB Documentation on Iterative Methods: <a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/">MATLAB Documentation</a></li>
+<li>Anderson, J. D. (2005). <em>Introduction to Flight</em>. McGraw-Hill Education.</li>
+<li>McCoy, R. L. (1999). <em>Modern Exterior Ballistics: The Launch and Flight Dynamics of Symmetric Projectiles</em>. Schiffer Military History.</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://shen-jiewen.github.io/2024/10/21/Hexo-Github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -285,7 +388,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-10-21 03:50:49 / Modified: 06:05:42" itemprop="dateCreated datePublished" datetime="2024-10-21T03:50:49+08:00">2024-10-21</time>
+              <time title="Created: 2024-10-21 03:50:49 / Modified: 16:23:11" itemprop="dateCreated datePublished" datetime="2024-10-21T03:50:49+08:00">2024-10-21</time>
             </span>
 
           
@@ -325,9 +428,10 @@ mjx-container[display="true"] + br {
 </ul>
 <h2 id="2-Github-Page-配置"><a href="#2-Github-Page-配置" class="headerlink" title="2. Github Page 配置"></a>2. Github Page 配置</h2><p>首先，我们需要访问Github的官网，登录我们的账号:<br><img src="/image/Hexo-Github-搭建个人博客/image.png" alt="image"><br>之后，我们需要创建一个用来访问的仓库，用来部署我们的网站<br><img src="/image/Hexo-Github-搭建个人博客/image2.png" alt="image2"><br>创建好之后,需要在Github账户中添加公钥，用于我们将本地的项目上传到Github上<br><img src="/image/Hexo-Github-搭建个人博客/image1.png" alt="image1"><br>本地获取公钥的命令是：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssh-keygen ： 用于创建公钥的命令</span></span><br><span class="line"><span class="comment"># -t rsa：指定使用 RSA 加密算法（也可以用 ed25519，更快且更安全）。</span></span><br><span class="line"><span class="comment"># -C "your_email@example.com"：为 SSH 密钥添加注释（通常为邮箱地址）。</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统会提示你选择密钥保存路径（默认路径为 ~/.ssh/id_rsa）。</span></span><br><span class="line"><span class="comment"># 查看公钥</span></span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub</span><br><span class="line"></span><br><span class="line"><span class="comment"># 终端会显示以下内容</span></span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA7...your-key...== your_email@example.com</span><br><span class="line"><span class="comment"># 复制以上公钥内容</span></span><br></pre></td></tr></table></figure>
-<p>之后将获取到的公钥保存到Github上<br><img src="/image/Hexo-Github-搭建个人博客/image3.png" alt="image3"><br><img src="/iamge/Hexo-Github-搭建个人博客/image4.png" alt="image4"><br>没有问题之后就可以上传项目了，再次打开VSCode的远程终端或者其他的远程连接终端，进入blog文件夹下，执行一下操作</p>
+<p>之后将获取到的公钥保存到Github上<br><img src="/image/Hexo-Github-搭建个人博客/image3.png" alt="image3"><br><img src="/image/Hexo-Github-搭建个人博客/image4.png" alt="image4"><br>没有问题之后就可以上传项目了，再次打开VSCode的远程终端或者其他的远程连接终端，进入blog文件夹下，执行一下操作</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ./blog 下执行</span></span><br><span class="line"><span class="comment"># 首先，找到这个文件夹下的_config.yml配置文件，打开并且下拉到最后，添加以下内容,repo后边跟Github仓库的地址加.git，main表示使用这个分支</span></span><br><span class="line">deploy:</span><br><span class="line">    <span class="built_in">type</span>: git</span><br><span class="line">    repo: https://github.com/username/username.github.io.git</span><br><span class="line">    branch: main</span><br><span class="line"><span class="comment"># 之后需要安装一个git部署工具 hexo-deployer-git</span></span><br><span class="line">npm install hexo-deployer-git --save</span><br><span class="line"></span><br><span class="line"><span class="comment"># 之后执行以下指令 : </span></span><br><span class="line">hexo clean <span class="comment"># 清除之前生成的东西</span></span><br><span class="line">hexo g <span class="comment"># hexo generate 生成静态文章</span></span><br><span class="line">hexo d <span class="comment"># hexo deploy 部署文章</span></span><br><span class="line"><span class="comment"># 如果是在离线端即 localhost:4000端测试你的博客，则只需要 hexo g + hexo s 即可，无需 hexo d</span></span><br></pre></td></tr></table></figure>
 <p>如果看到以下内容，就证明已经配置成功了<br><img src="/image/Hexo-Github-搭建个人博客/image5.png" alt="image5"><br>之后就可以访问以下网站直接访问博客页面了<br><code>username.github.io  # https://username.github.io</code></p>
+<h2 id="3-工作流"><a href="#3-工作流" class="headerlink" title="3. 工作流"></a>3. 工作流</h2><p>首先，对于我来说，因为很多笔记中要使用到数学公式，所以需要先安装一个可以渲染LaTex公式的插件，使用以下命令<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -514,7 +618,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -523,7 +627,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

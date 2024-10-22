@@ -265,6 +265,114 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://shen-jiewen.github.io/2024/10/22/%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%A6%BB%E6%95%A3%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Javen">
+      <meta itemprop="description" content="This is my website Hello Everyone">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Javen的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/22/%E8%BF%9E%E7%BB%AD%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%A6%BB%E6%95%A3%E5%8C%96/" class="post-title-link" itemprop="url">连续系统的离散化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-10-22 19:53:26 / Modified: 22:41:18" itemprop="dateCreated datePublished" datetime="2024-10-22T19:53:26+08:00">2024-10-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="现代控制理论—连续系统的离散化"><a href="#现代控制理论—连续系统的离散化" class="headerlink" title="现代控制理论—连续系统的离散化"></a>现代控制理论—连续系统的离散化</h1><h2 id="连续系统和离散系统"><a href="#连续系统和离散系统" class="headerlink" title="连续系统和离散系统"></a>连续系统和离散系统</h2><ul>
+<li>连续系统：时间是连续变量，状态防城港和输出方程在连续时间上定义，常见形式为微分方程。<ul>
+<li>状态方程：<script type="math/tex; mode=display">
+\begin{aligned}
+& \dot{x}(t)=A x(t)+B u(t) \\
+& y(t)=C x(t)+D u(t)
+\end{aligned}</script></li>
+</ul>
+</li>
+<li>离散系统：时间是离散变量，只在特定的采样时刻$kT$($k$为整数，$T$为采样周期)进行更新，常用差分形式描述。<ul>
+<li>离散状态方程：<script type="math/tex; mode=display">
+\begin{aligned}
+& x(k+1)=A_d x(k)+B_d u(k) \\
+& y(k)=C_d x(k)+D_d u(k)
+\end{aligned}</script></li>
+</ul>
+</li>
+</ul>
+<h2 id="连续系统离散化的常见方法"><a href="#连续系统离散化的常见方法" class="headerlink" title="连续系统离散化的常见方法"></a>连续系统离散化的常见方法</h2><h3 id="矩阵指数法-Exact-Discretization"><a href="#矩阵指数法-Exact-Discretization" class="headerlink" title="矩阵指数法(Exact Discretization)"></a>矩阵指数法(Exact Discretization)</h3><ul>
+<li>假设输入在一个采样周期内保持恒定(也就是在每一个输出周期内，持续保持一个输出值，直到下一个输出周期到达)，利用矩阵指数计算状态转移矩阵：<script type="math/tex; mode=display">
+  \begin{aligned}
+  & A_d=e^{AT} \\
+  & B_d=\left(\int_0^T e^{A \tau} d \tau\right)B=A^{-1}\left(e^{A T}-I\right) B
+  \end{aligned}</script></li>
+<li>这种方法精确且适合于线性系统，但计算矩阵指数$e^{AT}$需要较多计算资源。</li>
+</ul>
+<h3 id="零阶保持-ZOH，Zero-Order-Hold"><a href="#零阶保持-ZOH，Zero-Order-Hold" class="headerlink" title="零阶保持(ZOH，Zero-Order Hold)"></a>零阶保持(ZOH，Zero-Order Hold)</h3><ul>
+<li>假设在每个采样周期，输入$u(t)$保持恒定。这是数字控制器中最常见的假设。</li>
+<li>离散化结果：$A_d=e^{AT}，B_d=\left(\int_0^T e^{A \tau} d \tau\right)B$</li>
+<li>优点：零阶保持方法真是反映了输入的恒定值，适用于数字控制系统。</li>
+<li>缺点：仅适用于输入恒定的情况，无法捕捉输入频繁变化的场景。</li>
+</ul>
+<h3 id="向后差分器-Backward-Difference-Method"><a href="#向后差分器-Backward-Difference-Method" class="headerlink" title="向后差分器(Backward Difference Method)"></a>向后差分器(Backward Difference Method)</h3><ul>
+<li>用差分近似替代连续系统的微分：$\dot{x}(t) \approx \frac{x(k+1)-x(k)}{T}$</li>
+<li>得到离散状态方程：$x(k+1)=(I-A T)^{-1} x(k)+(I-A T)^{-1} B u(k)$</li>
+<li>优点：该方法计算简单。</li>
+<li>缺点：在系统动态较快时，误差较大。</li>
+</ul>
+<h3 id="双线性变换-Tustin变换"><a href="#双线性变换-Tustin变换" class="headerlink" title="双线性变换(Tustin变换)"></a>双线性变换(Tustin变换)</h3><ul>
+<li>双线性变换通过将$s$-域中的系统映射到$z$-域：$s=\frac{2}{T}\frac{z-1}{z+1}$</li>
+<li>离散化之后的传递函数：$G(z)=\left.G(s)\right|_{\frac{2}{T}\frac{z-1}{z+1}}$</li>
+<li>优点：保留了系统的稳定性，适用于模拟动态快的系统。</li>
+<li>缺点：对于高频成分的处理不够精确。</li>
+</ul>
+<h2 id="连续系统离散化的关键问题"><a href="#连续系统离散化的关键问题" class="headerlink" title="连续系统离散化的关键问题"></a>连续系统离散化的关键问题</h2><ul>
+<li><strong>采样周期$T$的选择</strong>：采样周期太短会导致计算成本的增加，太长会丢失系统的动态信息。通常，采样周期应满足<strong>奈奎斯特采样定律</strong>，即采样频率$f_s=\frac{1}{T}$大于信号最高频率的两倍。</li>
+<li><strong>量化误差</strong>：离散化过程中需要考虑计算机处理中的精度限制，避免由于量化误差导致的系统不稳定性。</li>
+<li><strong>抗混叠滤波</strong>：在进行离散化之前，常需要对连续信号进行滤波处理，以避免高频成分造成混叠现象。</li>
+</ul>
+<h2 id="MATLAB实现示例"><a href="#MATLAB实现示例" class="headerlink" title="MATLAB实现示例"></a>MATLAB实现示例</h2><p>以下是MATLAB中实现连续系统到离散系统转换的代码示例：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 定义连续系统状态空间模型</span></span><br><span class="line">A = [<span class="number">0</span> <span class="number">1</span>; <span class="number">-2</span> <span class="number">-3</span>];</span><br><span class="line">B = [<span class="number">0</span>; <span class="number">1</span>];</span><br><span class="line">C = [<span class="number">1</span> <span class="number">0</span>];</span><br><span class="line">D = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 采样周期</span></span><br><span class="line">T = <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 使用零阶保持法进行离散化</span></span><br><span class="line">sys_c = ss(A, B, C, D);  <span class="comment">% 连续系统</span></span><br><span class="line">sys_d = c2d(sys_c, T, <span class="string">&#x27;zoh&#x27;</span>);  <span class="comment">% 离散系统</span></span><br><span class="line"></span><br><span class="line"><span class="comment">% 输出离散化后的系统矩阵</span></span><br><span class="line">[A_d, B_d, C_d, D_d] = ssdata(sys_d);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;离散化后的系统矩阵：&#x27;</span>);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;A_d = &#x27;</span>); <span class="built_in">disp</span>(A_d);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;B_d = &#x27;</span>); <span class="built_in">disp</span>(B_d);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;C_d = &#x27;</span>); <span class="built_in">disp</span>(C_d);</span><br><span class="line"><span class="built_in">disp</span>(<span class="string">&#x27;D_d = &#x27;</span>); <span class="built_in">disp</span>(D_d);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://shen-jiewen.github.io/2024/10/21/%E5%BC%B9%E9%81%93%E8%A7%A3%E7%AE%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -634,7 +742,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -643,7 +751,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

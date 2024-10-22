@@ -150,7 +150,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
   </entry>
   <entry>
     <title>连续系统的离散化</title>
-    <url>/2024/10/22/222/</url>
+    <url>/2024/10/22/Continuous-system-discretization/</url>
     <content><![CDATA[<h1 id="现代控制理论—连续系统的离散化"><a href="#现代控制理论—连续系统的离散化" class="headerlink" title="现代控制理论—连续系统的离散化"></a>现代控制理论—连续系统的离散化</h1><h2 id="连续系统和离散系统"><a href="#连续系统和离散系统" class="headerlink" title="连续系统和离散系统"></a>连续系统和离散系统</h2><ul>
 <li>连续系统：时间是连续变量，状态方程和输出方程在连续时间上定义，常见形式为微分方程。<ul>
 <li>状态方程：<script type="math/tex; mode=display">

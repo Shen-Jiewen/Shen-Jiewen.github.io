@@ -164,7 +164,7 @@ u_k=-K_k x_k</script><p>其中<mjx-container class="MathJax" jax="SVG"><svg styl
 \begin{bmatrix}
 x_1 \\
 x_2
-\end{bmatrix}</script><p><img src="./image/Lyapunov稳定性分析/image1.png" alt="image1"></p>
+\end{bmatrix}</script><p><img src="/image/Lyapunov稳定性分析/image1.png" alt="image1"></p>
 </li>
 <li><p>渐进稳定系统</p>
 <script type="math/tex; mode=display">
@@ -181,7 +181,7 @@ x_2
 \begin{bmatrix}
 x_1 \\
 x_2
-\end{bmatrix}</script><p><img src="./image/Lyapunov稳定性分析/image2.png" alt="image1"></p>
+\end{bmatrix}</script><p><img src="/image/Lyapunov稳定性分析/image2.png" alt="image1"></p>
 </li>
 <li><p>非线性全局渐进稳定系统</p>
 <script type="math/tex; mode=display">
@@ -198,7 +198,7 @@ x_2
 \begin{bmatrix}
 {x_1}^3 \\
 {x_2}^2
-\end{bmatrix}</script><p><img src="./image/Lyapunov稳定性分析/image3.png" alt="image1"></p>
+\end{bmatrix}</script><p><img src="/image/Lyapunov稳定性分析/image3.png" alt="image1"></p>
 </li>
 <li><p>不稳定系统</p>
 <script type="math/tex; mode=display">
@@ -215,7 +215,7 @@ x_2
 \begin{bmatrix}
 x_1 \\
 x_2
-\end{bmatrix}</script><p><img src="./image/Lyapunov稳定性分析/image4.png" alt="image1"></p>
+\end{bmatrix}</script><p><img src="/image/Lyapunov稳定性分析/image4.png" alt="image1"></p>
 </li>
 </ul>
 <blockquote>

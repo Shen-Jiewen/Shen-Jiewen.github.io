@@ -265,6 +265,100 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://shen-jiewen.github.io/2024/11/01/WSL2%E4%B8%8A%E5%BC%80%E5%8F%91RT-Thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Javen">
+      <meta itemprop="description" content="This is my website Hello Everyone">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Javen的技术博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/11/01/WSL2%E4%B8%8A%E5%BC%80%E5%8F%91RT-Thread/" class="post-title-link" itemprop="url">WSL2上开发RT-Tread</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-11-01 23:04:02" itemprop="dateCreated datePublished" datetime="2024-11-01T23:04:02+08:00">2024-11-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-11-02 01:15:15" itemprop="dateModified" datetime="2024-11-02T01:15:15+08:00">2024-11-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="WSL2-Ubuntu-24-04-上开发RT-Thread操作系统"><a href="#WSL2-Ubuntu-24-04-上开发RT-Thread操作系统" class="headerlink" title="WSL2(Ubuntu 24.04)上开发RT-Thread操作系统"></a>WSL2(Ubuntu 24.04)上开发RT-Thread操作系统</h1><h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><ul>
+<li><p>RT-Thread源码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/RT-Thread/rt-thread.git</span><br><span class="line"><span class="comment"># 国内镜像</span></span><br><span class="line">git <span class="built_in">clone</span> https://gitee.com/RT-Thread/rt-thread.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装QEMU,这是一个仿真器,用来模拟RT-Thread在ARM架构上运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install qemu-system-arm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装python和scons环境(RT-Thread的qemu配置脚本是使用scons写的,需要在python环境中安装scons和kconfiglib)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install python3.12</span><br><span class="line"><span class="comment"># 切换到源码根目录</span></span><br><span class="line"><span class="built_in">cd</span> rt-thread/</span><br><span class="line"><span class="comment"># 创建python虚拟环境</span></span><br><span class="line">python3 -m venv .rt_thread_env</span><br><span class="line"><span class="comment"># 激活虚拟环境</span></span><br><span class="line"><span class="built_in">source</span> .rt_thread_env/bin/activate</span><br><span class="line"><span class="comment"># 安装scons和kconfiglib(前置环境)</span></span><br><span class="line">pip3 install scons kconfiglib</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装交叉编译器(因为编译RT-Thread要运行在ARM芯片上,所以需要使用gcc-arm的交叉编译环境),版本号要高于:6.2.1</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install -y gcc-arm-none-eabi</span><br><span class="line"><span class="comment"># 查看版本号</span></span><br><span class="line">arm-none-eabi-gcc --version    </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>版本号</strong>: arm-none-eabi-gcc (15:13.2.rel1-2) 13.2.1 20231009</p>
+</blockquote>
+</li>
+<li><p>安装ncuses库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install libncurses5-dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="RT-Thread下的qemu环境配置"><a href="#RT-Thread下的qemu环境配置" class="headerlink" title="RT-Thread下的qemu环境配置"></a>RT-Thread下的qemu环境配置</h2><p>进入RT-Thread的根目录,之后执行以下指令:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入模拟器环境</span></span><br><span class="line"><span class="built_in">cd</span> /bsp/qemu-vexpress-a9</span><br><span class="line"><span class="comment"># 进入配置环境,选择需要的配置</span></span><br><span class="line">scons --menuconfig</span><br><span class="line"><span class="comment"># 编译源码</span></span><br><span class="line">scons</span><br><span class="line"><span class="comment"># 授予运行权限</span></span><br><span class="line"><span class="built_in">chmod</span> +x ./qemu.sh</span><br><span class="line"><span class="comment"># 运行模拟器</span></span><br><span class="line">./qemu.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="项目代码编写"><a href="#项目代码编写" class="headerlink" title="项目代码编写"></a>项目代码编写</h2><p>进入/applications/main.c文件,编写项目代码,实现需要实现的功能,比如:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2006-2020, RT-Thread Development Team</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * SPDX-License-Identifier: Apache-2.0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Change Logs:</span></span><br><span class="line"><span class="comment"> * Date           Author       Notes</span></span><br><span class="line"><span class="comment"> * 2020/12/31     Bernard      Add license info</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;rtthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread_entry</span><span class="params">(<span class="type">void</span> *parameter)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">        rt_kprintf(<span class="string">&quot;Thread is running.\n&quot;</span>);</span><br><span class="line">        rt_thread_delay(<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    rt_kprintf(<span class="string">&quot;Hello, This is Javen.\n&quot;</span>);</span><br><span class="line">    <span class="comment">//创建线程</span></span><br><span class="line">    <span class="type">rt_thread_t</span> thread = rt_thread_create(<span class="string">&quot;my_thread&quot;</span>, thread_entry, RT_NULL, <span class="number">1024</span>, <span class="number">10</span>, <span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span>(thread != RT_NULL)&#123;</span><br><span class="line">        rt_thread_startup(thread);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>修改结束之后需要重新编译</p>
+</blockquote>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/programming-manual/finsh/finsh?id=finsh-%e5%86%85%e7%bd%ae%e5%91%bd%e4%bb%a4">FinSH控制台组件</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.rt-thread.org/document/site/#/rt-thread-version/rt-thread-standard/application-note/setup/qemu/ubuntu/an0005-qemu-ubuntu?id=%e7%bc%96%e8%af%91%e5%92%8c%e8%bf%90%e8%a1%8c-rt-thread">在Ubuntu平台上开发RT-Thread</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shirleyxu/p/9342071.html">在windows平台使用qemu-vexpress-a9</a></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://shen-jiewen.github.io/2024/10/28/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1307,7 +1401,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1316,7 +1410,7 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span>
       </div>
   </nav>

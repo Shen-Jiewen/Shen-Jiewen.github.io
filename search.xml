@@ -547,4 +547,51 @@ f(\mathbf{x})=\|\mathbf{x}\|_2=\sqrt{\mathbf{x}^\top\mathbf{x}}</script><ul>
         <tag>WSL2</tag>
       </tags>
   </entry>
+  <entry>
+    <title>渗透记录--W1R3S靶机</title>
+    <url>/2024/11/03/%E6%B8%97%E9%80%8F%E8%AE%B0%E5%BD%95-W1R3S%E9%9D%B6%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="渗透记录—W1R3S靶机"><a href="#渗透记录—W1R3S靶机" class="headerlink" title="渗透记录—W1R3S靶机"></a>渗透记录—W1R3S靶机</h1><h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><ul>
+<li>虚拟机环境(VMWare17):kali<ul>
+<li>网关: 192.168.217.128</li>
+</ul>
+</li>
+<li>靶机:Ubuntu16.04<ul>
+<li>网关: 192.168.217.131</li>
+</ul>
+</li>
+</ul>
+<h2 id="nmap扫描与分析"><a href="#nmap扫描与分析" class="headerlink" title="nmap扫描与分析"></a>nmap扫描与分析</h2><p>作为网络攻击方，我们首先要知道被攻击方也就是靶机的网络地址，才可以对其进行攻击，下面将使用kali自带的渗透工具对目标网段进行扫描:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># sudo: 提升命令的权限</span></span><br><span class="line"><span class="comment"># nmap: 网络扫描工具</span></span><br><span class="line"><span class="comment"># -sn: namp的ping扫描选项，只检测目标主机是否在线，步进行端口扫描。</span></span><br><span class="line"><span class="comment"># -sL: 默认参数，只进行扫描，不进行侵入式侦察</span></span><br><span class="line"><span class="comment"># 192.168.217.0/24: 指定了扫描的 IP 地址范围，这里表示从 192.168.217.0 到 192.168.217.255 的所有 IP 地址。/24 是子网掩码的简写，表示 256 个地址（C 类子网）</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sn 192.168.217.0/24</span><br><span class="line"><span class="comment"># 使用以下工具扫描也可以</span></span><br><span class="line"><span class="built_in">sudo</span> arp-scan -l</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>扫描结果如下:</p>
+</blockquote>
+<p><img src="/image/渗透记录-W1R3S/image1.png" alt="image1"></p>
+<p>确定目标靶机是192.168.217.131，之后执行以下指令开启端口扫描<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -sT: TCP连接扫描</span></span><br><span class="line"><span class="comment"># -p-: -p指定端口 -表示0~65535所有端口</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sT -p- 192.168.217.131 -oA tcp</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>扫描结果如下:</p>
+</blockquote>
+<p><img src="/image/渗透记录-W1R3S/image2.png" alt="image2"></p>
+<p>可以看到，暴露了四个开放的端口和对应端口运行的服务，我们使用命令将这几个端口保存为变量，方便之后调用。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># grep open ports.nmap: 找到文件中含有open的行。</span></span><br><span class="line"><span class="comment"># awk -F&#x27;/&#x27; &#x27;&#123;print $1&#125;&#x27;: 处理grep找到的行，-F&#x27;/&#x27;表示使用/作为分隔符，&#123;print $1&#125;表示打印出每行的第一个字段。</span></span><br><span class="line"><span class="comment"># paste -sd &#x27;,&#x27;: -s表示将多行合并为一行，-d表示使用&#x27;,&#x27;作为分隔符。</span></span><br><span class="line"><span class="comment"># ports=$(): 将输出结果赋值给一个变量。</span></span><br><span class="line">ports=$(grep open ports.nmap | awk -F<span class="string">&#x27;/&#x27;</span> <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> | <span class="built_in">paste</span> -sd <span class="string">&#x27;,&#x27;</span>) </span><br></pre></td></tr></table></figure></p>
+<p>之后再使用UDP扫描一遍，就是将命令中的-sT改为-sU，这里扫描过一遍之后没有暴露出开放的端口，所以忽略。</p>
+<p>确定开放的端口之后，就需要对开放的端口进行版本服务和漏洞的扫描了，</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -sT: TCP连接扫描</span></span><br><span class="line"><span class="comment"># -sV: 服务版本探测</span></span><br><span class="line"><span class="comment"># -sC: 使用Nmap的默认脚本进行漏洞探测</span></span><br><span class="line"><span class="comment"># -O: 操作系统检测</span></span><br><span class="line"><span class="comment"># -p$ports: 指定要扫描的端口范围，$ports是一个变量，为22,80,443这样的格式</span></span><br><span class="line"><span class="comment"># 192.168.217.131: 目标 IP 地址。</span></span><br><span class="line"><span class="comment"># -oA ports: 将扫描结果输出到文件。</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sT -sV -sC -O -p<span class="variable">$ports</span> 192.168.217.131 -oA ports</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>扫描结果如下:</p>
+</blockquote>
+<p><img src="/image/渗透记录-W1R3S/image3.png" alt="image3"></p>
+<p>可以看到对于暴露的四个端口，扫描出了对应的服务和系统的版本。</p>
+<ul>
+<li>21端口: 使用的FTP服务，版本号:vsftp 2.0.8，允许匿名FTP登录，并且列出了一些文件和文件夹权限。</li>
+<li>22端口: ssh服务端口，版本号:7.2p2，显示了支持的SSH密钥格式及其指纹信息。</li>
+<li>80端口: http服务，版本号:Apache HTTPD 2.4.18，放的是默认页面。</li>
+<li>3306端口: mysql服务，显示未经授权不能访问，没有更多信息。</li>
+<li>系统版本: Linux系统</li>
+</ul>
+<p>首先我们观察一下以上四个攻击向量，相对来说比较容易的突破口就是21端口的FTP服务，这个允许匿名登陆，我们就可以先匿名登录看一下FTP服务器上的内容，执行以下指令访问远程FTP服务。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用FTP服务访问远程服务器</span></span><br><span class="line">ftp 192.168.217.131</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>渗透</tag>
+      </tags>
+  </entry>
 </search>

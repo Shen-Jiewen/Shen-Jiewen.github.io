@@ -20,34 +20,30 @@
     var CONFIG = {"hostname":"shen-jiewen.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="电机参数识别算法个人心得 —— 递归最小二乘法（RLS）1. 为什么要做参数辨识最近在项目里需要搞电机的参数估计，说白了就是要实时获取电机的关键参数，比如定子电阻 、定子电感 还有磁链。之前一直觉得参数测量这种事是硬件组的活儿，没想到我也要弄。于是就开始研究递归最小二乘法（RLS），发现它不仅能搞定这些参数，还能实时更新，在参数整定方面还是很实用的。所以，这篇笔记就是我在搞清楚这套算法之后的心得，">
-<meta property="og:type" content="article">
-<meta property="og:title" content="电机参数辨识算法">
-<meta property="og:url" content="https://shen-jiewen.github.io/2024/10/21/%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0%E8%BE%A8%E8%AF%86%E7%AE%97%E6%B3%95/index.html">
+  <meta name="description" content="This is my website Hello Everyone">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Javen的技术博客">
+<meta property="og:url" content="https://shen-jiewen.github.io/page/2/index.html">
 <meta property="og:site_name" content="Javen的技术博客">
-<meta property="og:description" content="电机参数识别算法个人心得 —— 递归最小二乘法（RLS）1. 为什么要做参数辨识最近在项目里需要搞电机的参数估计，说白了就是要实时获取电机的关键参数，比如定子电阻 、定子电感 还有磁链。之前一直觉得参数测量这种事是硬件组的活儿，没想到我也要弄。于是就开始研究递归最小二乘法（RLS），发现它不仅能搞定这些参数，还能实时更新，在参数整定方面还是很实用的。所以，这篇笔记就是我在搞清楚这套算法之后的心得，">
+<meta property="og:description" content="This is my website Hello Everyone">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-10-20T18:42:43.000Z">
-<meta property="article:modified_time" content="2024-10-21T12:31:16.686Z">
 <meta property="article:author" content="Javen">
-<meta property="article:tag" content="算法">
-<meta property="article:tag" content="电机控制">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://shen-jiewen.github.io/2024/10/21/%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0%E8%BE%A8%E8%AF%86%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="https://shen-jiewen.github.io/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
-    isPost : true,
+    isHome : true,
+    isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>电机参数辨识算法 | Javen的技术博客</title>
+  <title>Javen的技术博客</title>
   
 
 
@@ -263,10 +259,9 @@ mjx-container[display="true"] + br {
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content index posts-expand">
             
-
-    
+      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -282,9 +277,10 @@ mjx-container[display="true"] + br {
       <meta itemprop="name" content="Javen的技术博客">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          电机参数辨识算法
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/10/21/%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0%E8%BE%A8%E8%AF%86%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">电机参数辨识算法</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -317,7 +313,7 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="电机参数识别算法个人心得-——-递归最小二乘法（RLS）"><a href="#电机参数识别算法个人心得-——-递归最小二乘法（RLS）" class="headerlink" title="电机参数识别算法个人心得 —— 递归最小二乘法（RLS）"></a>电机参数识别算法个人心得 —— 递归最小二乘法（RLS）</h1><h2 id="1-为什么要做参数辨识"><a href="#1-为什么要做参数辨识" class="headerlink" title="1. 为什么要做参数辨识"></a>1. 为什么要做参数辨识</h2><p>最近在项目里需要搞电机的参数估计，说白了就是要实时获取电机的关键参数，比如定子电阻 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.355ex;" xmlns="http://www.w3.org/2000/svg" width="2.655ex" height="1.901ex" role="img" focusable="false" viewBox="0 -683 1173.6 840.1"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g><g data-mml-node="mi" transform="translate(792,-150) scale(0.707)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></g></svg></mjx-container>、定子电感 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.355ex;" xmlns="http://www.w3.org/2000/svg" width="2.479ex" height="1.901ex" role="img" focusable="false" viewBox="0 -683 1095.6 840.1"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g><g data-mml-node="mi" transform="translate(714,-150) scale(0.707)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></g></svg></mjx-container>还有磁链<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.541ex" height="1.57ex" role="img" focusable="false" viewBox="0 -683 1565 694"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path></g><g data-mml-node="mi" transform="translate(751,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(1220,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container>。之前一直觉得参数测量这种事是硬件组的活儿，没想到我也要弄。于是就开始研究递归最小二乘法（RLS），发现它不仅能搞定这些参数，还能实时更新，在参数整定方面还是很实用的。所以，这篇笔记就是我在搞清楚这套算法之后的心得，边学边写，顺便记个脑子。</p>
+          <h1 id="电机参数识别算法个人心得-——-递归最小二乘法（RLS）"><a href="#电机参数识别算法个人心得-——-递归最小二乘法（RLS）" class="headerlink" title="电机参数识别算法个人心得 —— 递归最小二乘法（RLS）"></a>电机参数识别算法个人心得 —— 递归最小二乘法（RLS）</h1><h2 id="1-为什么要做参数辨识"><a href="#1-为什么要做参数辨识" class="headerlink" title="1. 为什么要做参数辨识"></a>1. 为什么要做参数辨识</h2><p>最近在项目里需要搞电机的参数估计，说白了就是要实时获取电机的关键参数，比如定子电阻 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.355ex;" xmlns="http://www.w3.org/2000/svg" width="2.655ex" height="1.901ex" role="img" focusable="false" viewBox="0 -683 1173.6 840.1"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g><g data-mml-node="mi" transform="translate(792,-150) scale(0.707)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></g></svg></mjx-container>、定子电感 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.355ex;" xmlns="http://www.w3.org/2000/svg" width="2.479ex" height="1.901ex" role="img" focusable="false" viewBox="0 -683 1095.6 840.1"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D43F" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"></path></g><g data-mml-node="mi" transform="translate(714,-150) scale(0.707)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></g></svg></mjx-container>还有磁链<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="3.541ex" height="1.57ex" role="img" focusable="false" viewBox="0 -683 1565 694"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D443" d="M287 628Q287 635 230 637Q206 637 199 638T192 648Q192 649 194 659Q200 679 203 681T397 683Q587 682 600 680Q664 669 707 631T751 530Q751 453 685 389Q616 321 507 303Q500 302 402 301H307L277 182Q247 66 247 59Q247 55 248 54T255 50T272 48T305 46H336Q342 37 342 35Q342 19 335 5Q330 0 319 0Q316 0 282 1T182 2Q120 2 87 2T51 1Q33 1 33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM645 554Q645 567 643 575T634 597T609 619T560 635Q553 636 480 637Q463 637 445 637T416 636T404 636Q391 635 386 627Q384 621 367 550T332 412T314 344Q314 342 395 342H407H430Q542 342 590 392Q617 419 631 471T645 554Z"></path></g><g data-mml-node="mi" transform="translate(751,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(1220,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container>。之前一直觉得参数测量这种事是硬件组的活儿，没想到我也要弄。于是就开始研究递归最小二乘法（RLS），发现它不仅能搞定这些参数，还能实时更新，在参数整定方面还是很实用的。所以，这篇笔记就是我在搞清楚这套算法之后的心得，边学边写，顺便记个脑子。</p>
 <h2 id="2-电机的-d-q-轴模型"><a href="#2-电机的-d-q-轴模型" class="headerlink" title="2. 电机的 d-q 轴模型"></a>2. 电机的 d-q 轴模型</h2><p>先从基础说起。电机的 d-q 轴模型其实不复杂，就是把三相电机的电压和电流转换成一个固定的参考系。可以这么理解：通过数学变换，把三相电流、电压搞成两个直轴上的量，这样计算起来方便很多，尤其是在控制上。</p>
 <p>方程如下：</p>
 <script type="math/tex; mode=display">
@@ -356,35 +352,25 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
 <h2 id="6-最后总结"><a href="#6-最后总结" class="headerlink" title="6. 最后总结"></a>6. 最后总结</h2><p>递归最小二乘法真的是个强大工具，尤其是做这种在线参数估计的时候，它能在数据变化的情况下自适应调整参数。这段代码的实现核心思想很简单：通过历史数据和新数据的结合，不断优化你想要的参数。当然了，实际用的时候，调参也很重要，尤其是遗忘因子 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.027ex;" xmlns="http://www.w3.org/2000/svg" width="1.319ex" height="1.597ex" role="img" focusable="false" viewBox="0 -694 583 706"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g></g></g></svg></mjx-container> 这东西，得根据具体情况调到合适的值。</p>
 <p>好了，学完 RLS，电机参数识别这部分算是搞定了，接下来就可以尝试在实际系统中跑一跑，看效果了。</p>
 
+      
     </div>
 
     
     
     
-
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
-              <a href="/tags/%E7%94%B5%E6%9C%BA%E6%8E%A7%E5%88%B6/" rel="tag"># 电机控制</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/2024/10/21/Hexo-Github-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="Hexo-Github-搭建个人博客">
-      Hexo-Github-搭建个人博客 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
+        <div class="post-eof"></div>
       </footer>
-    
   </article>
   
   
   
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
 
@@ -436,7 +422,6 @@ x = x + A^*_inv \cdot \alpha_k^T \cdot (\beta_k - \alpha_k x)</script><p>这个�
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B5%E6%9C%BA%E5%8F%82%E6%95%B0%E8%AF%86%E5%88%AB%E7%AE%97%E6%B3%95%E4%B8%AA%E4%BA%BA%E5%BF%83%E5%BE%97-%E2%80%94%E2%80%94-%E9%80%92%E5%BD%92%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%EF%BC%88RLS%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">电机参数识别算法个人心得 —— 递归最小二乘法（RLS）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E5%8F%82%E6%95%B0%E8%BE%A8%E8%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">1. 为什么要做参数辨识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E7%94%B5%E6%9C%BA%E7%9A%84-d-q-%E8%BD%B4%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2. 电机的 d-q 轴模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%A6%BB%E6%95%A3%E5%8C%96%E6%98%AF%E4%B8%AA%E5%95%A5%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">3. 离散化是个啥？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%80%92%E5%BD%92%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%EF%BC%88RLS%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">4. 递归最小二乘法（RLS）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="nav-number">1.5.</span> <span class="nav-text">5. 代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E9%83%A8%E5%88%86%EF%BC%9A"><span class="nav-number">1.5.1.</span> <span class="nav-text">核心部分：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%9C%80%E5%90%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.6.</span> <span class="nav-text">6. 最后总结</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
